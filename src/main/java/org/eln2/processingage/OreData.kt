@@ -1,8 +1,5 @@
 package org.eln2.processingage
 
-import net.minecraft.block.Block
-import net.minecraft.item.ItemStack
-
 /**
  * OreData
  * Data about the ores you are trying to make.

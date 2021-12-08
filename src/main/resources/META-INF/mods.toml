@@ -1,5 +1,5 @@
 modLoader="kotlinforforge"
-loaderVersion="[1,)"
+loaderVersion="[3,)"
 license="MIT"
 [[mods]]
 modId="processingage"
@@ -10,15 +10,19 @@ authors="jrddunbr"
 description='''
 This is Processing Age. It's designed to allow for ore processing and materials processing.
 '''
+
 [[dependencies.processingage]]
-    modId="forge"
-    mandatory=true
-    versionRange="[36,)"
-    ordering="NONE"
-    side="BOTH"
+modId="forge"
+mandatory=true
+versionRange="[38,)"
+# An ordering relationship for the dependency - BEFORE or AFTER required if the relationship is not mandatory
+ordering="NONE"
+# Side this dependency is applied on - BOTH, CLIENT or SERVER
+side="BOTH"
 [[dependencies.processingage]]
-    modId="minecraft"
-    mandatory=true
-    versionRange="[1.16.5,1.17)"
-    ordering="NONE"
-    side="BOTH"
+modId="minecraft"
+mandatory=true
+# This version range declares a minimum of the current minecraft version up to but not including the next major version
+versionRange="[1.18,1.19)"
+ordering="NONE"
+side="BOTH"

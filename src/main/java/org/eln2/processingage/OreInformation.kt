@@ -1,6 +1,6 @@
 package org.eln2.processingage
 
-val oreInformation = mutableListOf<OreData>(
+val oreInformation = mutableListOf(
     OreData(1, "acanthite", 5),
     OreData(1, "anthracite_coal", 5),
     OreData(1, "azurite", 4),
