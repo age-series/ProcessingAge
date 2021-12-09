@@ -1,4 +1,4 @@
-package org.eln2.processingage
+package org.eln2.processingage.materials
 
 val oreInformation = mutableListOf(
     OreData(1, "acanthite", 5),

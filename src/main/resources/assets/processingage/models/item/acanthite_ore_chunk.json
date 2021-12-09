@@ -1,0 +1,7 @@
+{
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "processingage:item/ore_chunk_rock_1",
+        "layer1": "processingage:item/ore_chunk_ore_1"
+    }
+}
