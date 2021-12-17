@@ -15,7 +15,8 @@ import net.minecraft.world.level.Level
 import org.eln2.processingage.ProcessingAge
 import org.eln2.processingage.item_helpers.MaterialContents
 import org.eln2.processingage.item_helpers.MaterialContentsList
-import org.eln2.processingage.materials.oreInformation
+import org.eln2.processingage.materials.materialDatabase
+import thedarkcolour.kotlinforforge.forge.DIST
 
 abstract class AbstractMaterialItem(tab: CreativeModeTab): Item(Properties().stacksTo(1).tab(tab)) {
 
@@ -26,7 +27,7 @@ abstract class AbstractMaterialItem(tab: CreativeModeTab): Item(Properties().sta
         val mc = if (stackTag != null) {
             MaterialContentsList.fromTag(stackTag)
         } else { MaterialContentsList(mutableListOf()) }
-        mc.contents.sortBy {it.kilograms}
+        mc.contents.sortBy {it.molar}
         return if (mc.contents.size != 0) {
             TranslatableComponent("${mc.contents.first().material}_${getMaterialType()}")
         } else {
@@ -36,13 +37,13 @@ abstract class AbstractMaterialItem(tab: CreativeModeTab): Item(Properties().sta
 
     override fun use(level: Level, player: Player, hand: InteractionHand): InteractionResultHolder<ItemStack> {
         val heldItem = player.inventory.getSelected()
-        val heldItemTag = heldItem.tag
-        if (heldItemTag != null) {
-            val contents = MaterialContentsList.fromTag(heldItemTag)
-            player.displayClientMessage(TextComponent(contents.toString()), false)
-            ProcessingAge.LOGGER.info(contents)
-        } else {
-            ProcessingAge.LOGGER.info("NBT: $heldItemTag")
+        if (DIST.isClient) {
+            val heldItemTag = heldItem.tag
+            if (heldItemTag != null) {
+                val contents = MaterialContentsList.fromTag(heldItemTag)
+                player.displayClientMessage(TextComponent(contents.toString()), false)
+                ProcessingAge.LOGGER.info(contents)
+            }
         }
         return InteractionResultHolder(InteractionResult.PASS, heldItem)
     }
@@ -50,7 +51,7 @@ abstract class AbstractMaterialItem(tab: CreativeModeTab): Item(Properties().sta
     override fun fillItemCategory(tab: CreativeModeTab, subItems: NonNullList<ItemStack>) {
         super.fillItemCategory(tab, subItems)
         if (tab in this.creativeTabs) {
-            oreInformation.forEach {
+            materialDatabase.forEach {
                 val raw = MaterialContentsList(mutableListOf(MaterialContents(it.name, 1.0)))
                 val stack = ItemStack(this, 1)
                 stack.tag = raw.toTag()

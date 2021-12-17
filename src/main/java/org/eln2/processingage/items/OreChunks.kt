@@ -7,7 +7,7 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 import net.minecraftforge.client.event.ColorHandlerEvent
 import net.minecraftforge.event.RegistryEvent
-import org.eln2.processingage.materials.oreInformation
+import org.eln2.processingage.materials.materialDatabase
 import thedarkcolour.kotlinforforge.forge.MOD_BUS
 import thedarkcolour.kotlinforforge.forge.addGenericListener
 
@@ -19,7 +19,7 @@ fun registerOreChunks() {
 }
 
 fun registerOreChunkItems(event: RegistryEvent.Register<Item>) {
-    oreInformation.map { it.name + "_ore_chunk" }.forEach {
+    materialDatabase.map { it.name + "_ore_chunk" }.forEach {
         val oc = OreChunk(it, 3145631, 16746075)
         oc.setRegistryName("processingage", it)
         event.registry.register(oc)

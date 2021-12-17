@@ -9,9 +9,9 @@ data class MaterialContentsList(val contents: MutableList<MaterialContents>) {
             val list: List<MaterialContents> =
                 nbt.allKeys.filter { it.startsWith(MaterialContentsKeyPrefix) }.mapNotNull {
                     val tag = nbt[it] as CompoundTag
-                    if ("material" in tag.allKeys && "kilograms" in tag.allKeys) {
+                    if ("material" in tag.allKeys && "molar" in tag.allKeys) {
                         val materialName: String = tag.getString("material")
-                        val kilograms: Double = tag.getDouble("kilograms")
+                        val kilograms: Double = tag.getDouble("molar")
                         MaterialContents(materialName, kilograms)
                     } else {
                         null
@@ -31,7 +31,7 @@ data class MaterialContentsList(val contents: MutableList<MaterialContents>) {
         this.contents.forEach {
             val thisTag = CompoundTag()
             thisTag.putString("material", it.material)
-            thisTag.putDouble("kilograms", it.kilograms)
+            thisTag.putDouble("molar", it.molar)
             tag.put("$MaterialContentsKeyPrefix${it.material}", thisTag)
         }
         return tag
@@ -39,7 +39,7 @@ data class MaterialContentsList(val contents: MutableList<MaterialContents>) {
 
     override fun toString(): String {
         return this.contents.joinToString ("\n") {
-            "${it.material}: ${it.kilograms}kg"
+            "${it.material}: ${it.molar}"
         }
     }
 }
